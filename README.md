@@ -1,1 +1,1 @@
-# esphttpd-wifi-module
+# esphttpd-wifi-config-module

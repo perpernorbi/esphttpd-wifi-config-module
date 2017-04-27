@@ -1,20 +1,17 @@
 #include <esp8266.h>
 #include "httpd.h"
 #include "httpdespfs.h"
-#include "cgi.h"
 #include "cgiwifi.h"
 #include "cgiflash.h"
-#include "stdout.h"
 #include "auth.h"
 #include "espfs.h"
 #include "captdns.h"
 #include "webpages-espfs.h"
 #include "cgiwebsocket.h"
-#include "cgi-test.h"
 #include "json.h"
 
 
-int ICACHE_FLASH_ATTR esphttpd_wifi_module_cgiWiFiStatus (HttpdConnData *connData)
+int ICACHE_FLASH_ATTR wifi_module_cgiWiFiStatus (HttpdConnData *connData)
 {
     httpdStartResponse(connData, 200);
     httpdHeader(connData, "Content-Type", "text/json");
@@ -53,14 +50,14 @@ int ICACHE_FLASH_ATTR esphttpd_wifi_module_cgiWiFiStatus (HttpdConnData *connDat
     return HTTPD_CGI_DONE;
 }
 
-HttpdBuiltInUrl esphttpd_wifi_module_builtInUrls[]={
-	{"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
-	{"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},
-	{"/wifi/wifiscan.cgi", cgiWiFiScan, NULL},
-	{"/wifi/wifi.tpl", cgiEspFsTemplate, tplWlan},
-	{"/wifi/connect.cgi", cgiWiFiConnect, NULL},
-	{"/wifi/connstatus.cgi", cgiWiFiConnStatus, NULL},
-    {"/wifi/wifistatus.cgi", esphttpd_wifi_module_cgiWiFiStatus, NULL},
-	{"/wifi/setmode.cgi", cgiWiFiSetMode, NULL},
-	{NULL, NULL, NULL}
+HttpdBuiltInUrl wifi_module_builtInUrls[]={
+    {"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
+    {"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},
+    {"/wifi/wifiscan.cgi", cgiWiFiScan, NULL},
+    {"/wifi/wifi.tpl", cgiEspFsTemplate, tplWlan},
+    {"/wifi/connect.cgi", cgiWiFiConnect, NULL},
+    {"/wifi/connstatus.cgi", cgiWiFiConnStatus, NULL},
+    {"/wifi/wifistatus.cgi", wifi_module_cgiWiFiStatus, NULL},
+    {"/wifi/setmode.cgi", cgiWiFiSetMode, NULL},
+    {NULL, NULL, NULL}
 };
