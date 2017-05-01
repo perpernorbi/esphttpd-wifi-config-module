@@ -1,5 +1,5 @@
 #include <esp8266.h>
-#include "httpd.h"
+#include "wifi-config-module.h"
 #include "httpdespfs.h"
 #include "cgiwifi.h"
 #include "cgiflash.h"
@@ -9,6 +9,20 @@
 #include "webpages-espfs.h"
 #include "cgiwebsocket.h"
 #include "json.h"
+
+HttpdBuiltInUrl wifi_module_builtInUrls[]={
+    {"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
+    {"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},
+    {"/wifi/wifiscan.cgi", cgiWiFiScan, NULL},
+    {"/wifi/wifi.tpl", cgiEspFsTemplate, tplWlan},
+    {"/wifi/connect.cgi", cgiWiFiConnect, NULL},
+    {"/wifi/connstatus.cgi", cgiWiFiConnStatus, NULL},
+    {"/wifi/wifistatus.cgi", wifi_module_cgiWiFiStatus, NULL},
+    {"/wifi/setmode.cgi", cgiWiFiSetMode, NULL}
+};
+
+const size_t wifi_module_builtInUrlsSize =
+        sizeof(wifi_module_builtInUrls) / sizeof(wifi_module_builtInUrls[0]);
 
 
 int ICACHE_FLASH_ATTR wifi_module_cgiWiFiStatus (HttpdConnData *connData)
@@ -50,14 +64,3 @@ int ICACHE_FLASH_ATTR wifi_module_cgiWiFiStatus (HttpdConnData *connData)
     return HTTPD_CGI_DONE;
 }
 
-HttpdBuiltInUrl wifi_module_builtInUrls[]={
-    {"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
-    {"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},
-    {"/wifi/wifiscan.cgi", cgiWiFiScan, NULL},
-    {"/wifi/wifi.tpl", cgiEspFsTemplate, tplWlan},
-    {"/wifi/connect.cgi", cgiWiFiConnect, NULL},
-    {"/wifi/connstatus.cgi", cgiWiFiConnStatus, NULL},
-    {"/wifi/wifistatus.cgi", wifi_module_cgiWiFiStatus, NULL},
-    {"/wifi/setmode.cgi", cgiWiFiSetMode, NULL},
-    {NULL, NULL, NULL}
-};
