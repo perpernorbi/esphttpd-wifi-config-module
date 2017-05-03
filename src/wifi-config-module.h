@@ -7,6 +7,5 @@
 
 int ICACHE_FLASH_ATTR wifi_module_cgiWiFiStatus (HttpdConnData *connData);
 
-extern HttpdBuiltInUrl wifi_module_builtInUrls[];
-extern const size_t wifi_module_builtInUrlsSize;
+extern const HttpdBuiltInUrl wifi_module_builtInUrls[];
 #endif // WIFICONFIGMODULE_H

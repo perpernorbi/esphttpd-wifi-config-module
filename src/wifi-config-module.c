@@ -10,7 +10,7 @@
 #include "cgiwebsocket.h"
 #include "json.h"
 
-HttpdBuiltInUrl wifi_module_builtInUrls[]={
+const HttpdBuiltInUrl wifi_module_builtInUrls[]={
     {"/wifi", cgiRedirect, "/wifi/wifi.tpl"},
     {"/wifi/", cgiRedirect, "/wifi/wifi.tpl"},
     {"/wifi/wifiscan.cgi", cgiWiFiScan, NULL},
@@ -18,12 +18,9 @@ HttpdBuiltInUrl wifi_module_builtInUrls[]={
     {"/wifi/connect.cgi", cgiWiFiConnect, NULL},
     {"/wifi/connstatus.cgi", cgiWiFiConnStatus, NULL},
     {"/wifi/wifistatus.cgi", wifi_module_cgiWiFiStatus, NULL},
-    {"/wifi/setmode.cgi", cgiWiFiSetMode, NULL}
+    {"/wifi/setmode.cgi", cgiWiFiSetMode, NULL},
+    {NULL, NULL, NULL}
 };
-
-const size_t wifi_module_builtInUrlsSize =
-        sizeof(wifi_module_builtInUrls) / sizeof(wifi_module_builtInUrls[0]);
-
 
 int ICACHE_FLASH_ATTR wifi_module_cgiWiFiStatus (HttpdConnData *connData)
 {
