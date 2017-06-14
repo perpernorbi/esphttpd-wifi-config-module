@@ -1,0 +1,24 @@
+<html>
+ <head>
+  <title>WiFi connection</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="140medley.min.js"></script>
+ </head>
+ <body>
+  <div id="main">
+  </div>
+  <script>
+  var xhr2=j();
+  window.onload=function(e) {
+   xhr2.open("GET", "wifi.tpl");
+   xhr2.onreadystatechange=function() {
+    if (xhr2.readyState==4 && xhr2.status>=200 && xhr2.status<300) {
+     $("#main").innerHTML=xhr2.responseText;
+     scanAPs();
+    }
+   }
+   xhr2.send();
+  };
+  </script>
+ </body>
+</html>
